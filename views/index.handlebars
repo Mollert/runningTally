@@ -1,0 +1,59 @@
+
+	<div id="outline">
+
+		<div class="portValue saved">
+			<div class="tValue">As of the last saved values on {{update.saved.totalDate}}</div>
+			<div class="tValue"><span class="fontLarger">${{update.saved.totalValue}}</span> was the total portfolio value.</div>
+			<div class="tValue">A YTD {{update.saved.upDown}} of <span class="fontLarger">${{update.saved.ytdValue}}</span> or {{update.saved.percentage}}%</div>
+		</div>
+
+		<div class="middleLine"></div>	
+
+		<div class="portValue">
+			<div class="fundCloseDate">As of close on {{update.close.partialDate}}</div>
+			<div class="fundCloseDate"><span class="fontLarger">${{update.close.totalValue}}</span> was the total portfolio value.</div>
+			<div class="fundCloseDate">A YTD {{update.close.upDown}} of <span class="fontLarger">${{update.close.ytdValue}}</span> or {{update.close.percentage}}%</div>
+		</div>
+
+		<div class="middleLine"></div>	
+
+		<div id="singleFund">
+			<div class="topFund">
+				<div class="fundName">Vanguard Total Stock Market Index (VTSAX)</div>
+				<div class="updateValue">The last saved value was ${{update.totalfund.updateValue}}</div>
+				<div class="closeValue">It closed at ${{update.totalfund.closeValue}}</div>
+				<div class="currentResults spaceBar">YTD return = {{update.totalfund.results}}%</div>				
+			</div>
+			<div class="fund">
+				<div class="fundName">Vanguard Information Technology Index (VITAX)</div>
+				<div class="updateValue">The last saved value was ${{update.iTfund.updateValue}}</div>
+				<div class="closeValue">It closed at ${{update.iTfund.closeValue}}</div>
+				<div class="currentResults spaceBar">YTD return = {{update.iTfund.results}}%</div>				
+			</div>
+			<div class="fund">
+				<div class="fundName">Matthews China Fund (MCHFX)</div>
+				<div class="updateValue">The last saved value was ${{update.chinafund.updateValue}}</div>
+				<div class="closeValue">It closed at ${{update.chinafund.closeValue}}</div>
+				<div class="currentResults spaceBar">YTD return = {{update.chinafund.results}}%</div>				
+			</div>
+			<div class="fund">
+				<div class="fundName">SPDR Gold Shares (GLD)</div>
+				<div class="updateValue">The last saved value was ${{update.goldfund.updateValue}}</div>
+				<div class="closeValue">It closed at ${{update.goldfund.closeValue}}</div>
+				<div class="currentResults spaceBar">YTD return = {{update.goldfund.results}}%</div>				
+			</div>
+		</div>
+
+		<div class="middleLine"></div>
+
+		<form id="updateData" action="/update" method="GET">
+			<div id="update">
+				<div class="updateInfo">To update the data to these close numbers,</div>
+				<div class="updateInfo">click the button.</div>
+				<div class="updateInfo spaceTop"><button type="submit" id="updateButton">Update</button></div>
+			</div>
+		</form>
+
+		<div id="clearBottom"></div>
+ 
+	</div>

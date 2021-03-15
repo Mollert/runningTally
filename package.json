@@ -1,0 +1,21 @@
+{
+  "name": "runningtally",
+  "version": "1.0.0",
+  "description": "Updates the portfollio automatically",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "David Mollert",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cheerio": "^1.0.0-rc.5",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.2.1",
+    "fs": "0.0.1-security",
+    "node-fetch": "^2.6.1",
+    "path": "^0.12.7"
+  }
+}

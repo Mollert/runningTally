@@ -1,0 +1,74 @@
+
+@font-face { src: url("/assets/KronaOne-Regular.ttf"); font-family: kronaOne; }
+
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+#outline {
+	width: 94vw;
+	height: auto;
+	margin: 3vw 0 0 3vw;
+	background-color: #C3CDE6;
+	font-family: kronaOne;
+	font-size: 1.2rem;
+	line-height: 150%;
+}
+
+.fontLarger {
+	font-size: 1.4rem;
+}
+
+.portValue {
+	line-height: 160%;	
+	text-align: center;
+}
+
+.saved {
+	padding: 2rem 0 0 0;	
+}
+
+.middleLine {
+	height: 2.4rem;
+	margin: 2rem 4rem 0 4rem;
+	border-top: 0.4rem solid lightslategray;
+}
+
+.topFund {
+	margin: 0 6rem 0 6rem;	
+}
+
+.fund {
+	margin: 1rem 6rem 0 6rem;	
+}
+
+.fundName {
+	text-decoration: underline;
+	text-align: center;		
+}
+
+.spaceBar {
+	padding: 0 0 0 4rem;
+}
+
+.updateInfo {
+	text-align: center;	
+}
+
+.spaceTop {
+	margin: 1rem 0 0 0;
+}
+
+#updateButton {
+	font-family: kronaOne;
+	font-size: 1.4rem;
+	padding: 0.6rem 1rem;
+	border-radius: 0.4rem;
+	background-color: slateblue;
+}
+
+#clearBottom {
+	width: 100%;
+	height: 8vw;
+}
