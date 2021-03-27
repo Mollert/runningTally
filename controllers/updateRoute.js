@@ -10,10 +10,11 @@ let theDate = require("../public/javascript/datesToDisplay.js");
 let asValues = require("../public/javascript/valueAtClose.js");
 let values = asValues.allCloseValues;
 
+
 router.get("/", (req, res) => {
 
-	let saveData = theDate.wMonth + "|" + values[0] + "|" + values[1] + "|" + values[2] + "|" + values[3] + "|" + values[4] + "|" + values[6] + "|" + values[8] + "|" + values[10];
-	
+	let saveData = theDate.wMonth + "|" + values[0] + "|" + values[1] + "|" + values[2] + "|" + values[3] + "|" + values[4] + "|" + values[5] + "|" + values[12] + "|" + values[19] + "|" + values[26];
+
 	let path = "./updateFile/updatedData.txt"
 
 	fs.writeFile(path, saveData, {flag: "w"}, (error) => {
@@ -27,12 +28,13 @@ router.get("/", (req, res) => {
 		date: theDate.wMonth,
 		tPortfolio: values[0],
 		increaseDecrease: values[1],
-		difference: values[2],
-		percent: values[3],
-		tStock: values[4],
-		iTech: values[6],
-		matthews: values[8],
-		gShares: values[10],
+		color: values[2],
+		difference: values[3],
+		percent: values[4],
+		tStock: values[5],
+		iTech: values[12],
+		matthews: values[19],
+		gShares: values[26]
 	}
 
 	res.render("update", { posted });
