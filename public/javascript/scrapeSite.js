@@ -22,9 +22,10 @@ const createPromises = (theGroup) => {
 				} else {
 					thePrice = $('.quote-header-section').find('span').eq(3).text();
 				}
-
 				resolve(thePrice);
 			})
+			.catch(() => "error");
+
 		})
 		allPs.push(startP);
 	})

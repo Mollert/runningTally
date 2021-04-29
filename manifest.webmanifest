@@ -1,0 +1,22 @@
+{
+  "short_name": "Portfolio update",
+  "name": "Running tally of funds",
+  "description": "Scraping and updating portfolio and funds",
+  "icons": [
+    {
+      "src": "./assets/android-chrome-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "./assets/android-chrome-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "https://ourfunds.xyz",
+  "background_color": "#FFFFFF",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#C3CDE6"
+}

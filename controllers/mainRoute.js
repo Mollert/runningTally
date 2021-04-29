@@ -14,11 +14,57 @@ let theDate = require("../public/javascript/datesToDisplay.js");
 
 router.get("/", (req, res) => {
 
-	let allFunds = ["VTSAX", "VITAX", "MCHFX", "GLD"];
+	let allFunds = ["VTSAX", "VITAX", "MCHFX", "GLD"];//VITAX:GLD
 	let updatedValues = getUpdated();
+	let transfer = 0;
+	let issueNum = 0;
+	let didUpdate = {
+		issue: "",
+		plural: ""
+	};
 
 	const letsResolve = (pGroup) => {
 		Promise.all(pGroup).then(result => {
+
+//			console.log(result);
+
+			result.forEach(each => {
+				if (each === "") {
+					issueNum++;
+				} else {		
+					transfer = Number(each);
+					if (Number.isNaN(transfer)) {
+						issueNum++;
+					}
+				}
+			});
+
+			if (result.length !== 4) {
+				issueNum++;
+			}
+
+			switch (issueNum) {
+				case 0:
+					didUpdate.issue = "";
+					break;
+				case 1:
+					didUpdate.issue = "one";
+					break;
+				case 2:
+					didUpdate.issue = "two";
+					didUpdate.plural = "s";
+					break;
+				case 3:
+					didUpdate.issue = "three";
+					didUpdate.plural = "s";
+					break;
+				default:
+					break;
+			}
+
+			if (issueNum > 0) {
+				res.render("error", { didUpdate });
+			} else {
 
 			let closeValues = atClose.prepareCloseValue(result);
 
@@ -77,8 +123,12 @@ router.get("/", (req, res) => {
 				}
 			}
 
-			res.render("index", { update });	
+			res.render("index", { update });
+
+			}
+
 		})
+		
 	}
 
 	letsResolve(createPromises(allFunds));
