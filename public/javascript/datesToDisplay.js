@@ -1,6 +1,5 @@
 
-const monthsOfYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const { DateTime } = require("luxon");
 
 // Selects day description due to number
 const tailEnd = (whatDay) => {
@@ -15,42 +14,39 @@ const tailEnd = (whatDay) => {
 	}
 }
 
-let rightNow = new Date();
+let rightNow = DateTime.now();
 
 let theDate = {
 	wMonth: "",
 	woMonth: ""
 }
 
-
-// Make sure the date is Monday during the day to Friday night only
-switch (rightNow.getDay()) {
-	case 0:
-		rightNow.setDate(rightNow.getDate() - 2);
-		break;
+// Make sure the date is Monday(1) during the day to Friday(5) night only
+switch (rightNow.weekday) {
 	case 1:
-		if (rightNow.getHours() < 18) {
-			rightNow.setDate(rightNow.getDate() - 3);
+		if (rightNow.hour < 18) {
+			rightNow = rightNow.set({weekday: 5});
 		}
 		break;	
 	case 2:
 	case 3:
 	case 4:
 	case 5:
-		if (rightNow.getHours() < 18) {
-			rightNow.setDate(rightNow.getDate() - 1);
+		if (rightNow.hour < 18) {
+			rightNow = rightNow.minus({ days: 1 });
 		}	
 		break;
 	case 6:
-		rightNow.setDate(rightNow.getDate() - 1);
-		break;
+	case 7:
+		rightNow = rightNow.set({weekday: 5});
+		break;		
 	default:
 		break;
 }
 
 // Creates dates to be used.  With and without the month
-theDate.wMonth = daysOfWeek[rightNow.getDay()] + ", " + monthsOfYear[rightNow.getMonth()] + " " + rightNow.getDate() + tailEnd(rightNow.getDate());
-theDate.woMonth = daysOfWeek[rightNow.getDay()] + " the " + rightNow.getDate() + tailEnd(rightNow.getDate());
+theDate.wMonth = rightNow.weekdayLong + ", " + rightNow.monthLong + " " + rightNow.day + tailEnd(rightNow.day);
+theDate.woMonth = rightNow.weekdayLong + " the " + rightNow.day + tailEnd(rightNow.day);
 
 
 module.exports = theDate;
