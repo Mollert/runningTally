@@ -25,7 +25,7 @@ let theDate = {
 switch (rightNow.weekday) {
 	case 1:
 		if (rightNow.hour < 18) {
-			rightNow = rightNow.set({weekday: 5});
+			rightNow = rightNow.minus({days: 3});
 		}
 		break;	
 	case 2:
