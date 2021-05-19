@@ -5,7 +5,8 @@ const fs = require("fs");
 
 
 // Needed for close date
-let theDate = require("../public/javascript/datesToDisplay.js");
+let postDates = require("../public/javascript/datesToDisplay.js");
+let dateWM = postDates();
 // Need calculated info from closed values
 let asValues = require("../public/javascript/valueAtClose.js");
 let values = asValues.allCloseValues;
@@ -13,19 +14,23 @@ let values = asValues.allCloseValues;
 
 router.get("/", (req, res) => {
 
-	let saveData = theDate.wMonth + "|" + values[0] + "|" + values[1] + "|" + values[2] + "|" + values[3] + "|" + values[4] + "|" + values[5] + "|" + values[12] + "|" + values[19] + "|" + values[26];
+	let saveData = dateWM.wMonth + "|" + values[0] + "|" + values[1] + "|" + values[2] + "|" + values[3] + "|" + values[4] + "|" + values[5] + "|" + values[12] + "|" + values[19] + "|" + values[26];
 
 	let path = "./updateFile/updatedData.txt"
 
 	fs.writeFile(path, saveData, {flag: "w"}, (error) => {
 		if (error) {
 			console.log(error.message);
-			res.render("error", { error });			
+			didUpdate = {
+				issue: "one write to file",
+				plural: ""
+			};
+			res.render("error", { didUpdate });			
 		}
 	});
 
 	let posted = {
-		date: theDate.wMonth,
+		date: dateWM.wMonth,
 		tPortfolio: values[0],
 		increaseDecrease: values[1],
 		color: values[2],

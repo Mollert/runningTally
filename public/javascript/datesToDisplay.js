@@ -14,39 +14,42 @@ const tailEnd = (whatDay) => {
 	}
 }
 
-let rightNow = DateTime.now();
 
-let theDate = {
-	wMonth: "",
-	woMonth: ""
-}
+const postDates = () => {
+	let rightNow = DateTime.now();
 
+	let theDate = {
+		wMonth: "",
+		woMonth: ""
+	}
 // Make sure the date is Monday(1) during the day to Friday(5) night only
-switch (rightNow.weekday) {
-	case 1:
-		if (rightNow.hour < 18) {
-			rightNow = rightNow.minus({days: 3});
-		}
-		break;	
-	case 2:
-	case 3:
-	case 4:
-	case 5:
-		if (rightNow.hour < 18) {
-			rightNow = rightNow.minus({ days: 1 });
-		}	
-		break;
-	case 6:
-	case 7:
-		rightNow = rightNow.set({weekday: 5});
-		break;		
-	default:
-		break;
+	switch (rightNow.weekday) {
+		case 1:
+			if (rightNow.hour < 18) {
+				rightNow = rightNow.minus({days: 3});
+			}
+			break;	
+		case 2:
+		case 3:
+		case 4:
+		case 5:
+			if (rightNow.hour < 18) {
+				rightNow = rightNow.minus({ days: 1 });
+			}	
+			break;
+		case 6:
+		case 7:
+			rightNow = rightNow.set({weekday: 5});
+			break;		
+		default:
+			break;
+	}
+// Creates dates to be used.  With and without the month
+	theDate.wMonth = rightNow.weekdayLong + ", " + rightNow.monthLong + " " + rightNow.day + tailEnd(rightNow.day);
+	theDate.woMonth = rightNow.weekdayLong + " the " + rightNow.day + tailEnd(rightNow.day);
+
+	return theDate;
 }
 
-// Creates dates to be used.  With and without the month
-theDate.wMonth = rightNow.weekdayLong + ", " + rightNow.monthLong + " " + rightNow.day + tailEnd(rightNow.day);
-theDate.woMonth = rightNow.weekdayLong + " the " + rightNow.day + tailEnd(rightNow.day);
 
-
-module.exports = theDate;
+module.exports = postDates;
