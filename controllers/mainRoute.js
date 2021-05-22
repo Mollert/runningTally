@@ -10,12 +10,13 @@ let createPromises = require("../public/javascript/scrapeSite.js");
 let atClose = require("../public/javascript/valueAtClose.js");
 // Needed partial date
 let postDates = require("../public/javascript/datesToDisplay.js");
-let dateNM = postDates();
+
 
 router.get("/", (req, res) => {
 
 	let allFunds = ["VTSAX", "VITAX", "MCHFX", "GLD"];
 	let updatedValues = getUpdated();
+	let dateNM = postDates();
 	let transfer = 0;
 	let issueNum = 0;
 	let didUpdate = {
