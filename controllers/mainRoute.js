@@ -121,9 +121,6 @@ router.get("/", (req, res) => {
 					differenceColor: closeValues[30],	
 					difference: closeValues[31],
 					differencePercentage: closeValues[32]
-				},
-				check: {
-					asOfNow: dateNM.present					
 				}
 			}
 

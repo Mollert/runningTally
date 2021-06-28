@@ -14,7 +14,7 @@ const tailEnd = (whatDay) => {
 	}
 }
 
-// Wrapped date into function so it generates the correct date every time the web page is hit
+// Wrapped date into function so it generates the correct date every time the seb page is hit
 const postDates = () => {
 	let rightNow = DateTime.now();
 
@@ -23,10 +23,8 @@ const postDates = () => {
 
 	let theDate = {
 		wMonth: "",
-		woMonth: "",
-		present: rightNow.weekdayShort + " the " + rightNow.day + tailEnd(rightNow.day) + " at " + rightNow.hour + ":" + rightNow.minute
+		woMonth: ""
 	}
-
 // Make sure the date is Monday(1) during the day to Friday(5) night only
 	switch (rightNow.weekday) {
 		case 1:
@@ -39,7 +37,7 @@ const postDates = () => {
 		case 4:
 		case 5:
 			if (rightNow.hour < 18) {
-				rightNow = rightNow.minus({days: 1 });
+				rightNow = rightNow.minus({ days: 1 });
 			}	
 			break;
 		case 6:
