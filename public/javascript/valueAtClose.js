@@ -16,11 +16,12 @@ const prepareCloseValue = (closes) => {
 
 // Calculate close value of funds and add to portfolio value wo/fund value
 	for (i = 0 ; i < closes.length ; i++) {
-		let fundValue = Number(closes[i]);
+		let fundValue = Number(closes[i].price);
 		fundValue = (fundValue * firstOfYear.fundShares[i]);
 
 		portTotal = portTotal + fundValue;
 	}
+
 	allCloseValues[0] = theCommas(portTotal);
 
 // Calculate if increase or decrease from first of year
@@ -37,6 +38,7 @@ const prepareCloseValue = (closes) => {
 	if (totalDifference < 0) {
 		totalDifference = totalDifference * -1;
 	}
+
 	allCloseValues[3] = theCommas(totalDifference);
 
 // Find percentage from first of year
@@ -47,22 +49,22 @@ const prepareCloseValue = (closes) => {
 		allCloseValues[4] = portPercentage.toFixed(1);		
 	}
 
-		let j = 5;
+	let j = 5;
 // Calculate value and percentage of each fund
 	for (i = 0 ; i < closes.length ; i++) {
 // Claculate value of each fund
-		let currentValue = Number(closes[i]);
+		let currentValue = Number(closes[i].price);
 		currentValue = (currentValue * firstOfYear.fundShares[i]);
+		allCloseValues[j] = theCommas(currentValue);
 
-		allCloseValues[j] = theCommas(currentValue);		
 // Is current value of the current value a plus or minus
 		if (currentValue > (firstOfYear.fundValue[i] * firstOfYear.fundShares[i])) {
 			allCloseValues[j+1] = "black";
 		} else {
 			allCloseValues[j+1] = "red";	
 		}
+		allCloseValues[j+2] = ((closes[i].price - firstOfYear.fundValue[i]) / firstOfYear.fundValue[i] * 100).toFixed(1);
 
-		allCloseValues[j+2] = ((closes[i] - firstOfYear.fundValue[i]) / firstOfYear.fundValue[i] * 100).toFixed(1);
 // Convert updated stirng of value to number and then see if close value is more or less of updated value
 		let updatedValueToNumber = updatedValues[i+6].replace(/,/g, "");
 		updatedValueToNumber = Number(updatedValueToNumber);
@@ -75,8 +77,10 @@ const prepareCloseValue = (closes) => {
 			allCloseValues[j+3] = "increase";
 			allCloseValues[j+4] = "black";						
 		}
+
 // What is the difference between updated value and closed value
-		allCloseValues[j+5] = theCommas(sinceUpdateDifference);		
+		allCloseValues[j+5] = theCommas(sinceUpdateDifference);
+
 // What is the percentage difference between updated value and closed value
 		let fundPercentage = ((currentValue - updatedValueToNumber) / updatedValueToNumber * 100);
 		if (fundPercentage < 0.1 && fundPercentage > -0.1) {

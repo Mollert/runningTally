@@ -4,25 +4,59 @@ const fetch = require("node-fetch");
 const cheerio = require("cheerio");
 
 
+let dateTime = require("./datesToDisplay.js");
+
+
 const createPromises = (theGroup) => {
 
 	let allPs = [];
-	let thePrice = 0;
 
 	theGroup.forEach((tick) => {
+
+		let dateSettled = "";
+		let scrapeSettled = "";		
+		let settledDay = "";
+		let settlement = {
+			"tick": tick,
+			"price": "",		
+			"settled": ""
+		};
+
 		let startP = new Promise((resolve, reject) => {
-			fetch("https://finance.yahoo.com/quote/" + tick + "?p=" + tick)			
+			fetch("https://www.cnbc.com/quotes/" + tick + "?qsearchterm=" + tick)
 			.then(response => {
 				return response.text();
 			})
 			.then(reply => {
+
 				const $ = cheerio.load(reply);
+
 				if (tick === "GLD") {
-					thePrice = $('.quote-header-section').find('span').eq(11).text();
+					if (dateTime.nowWeekday < 6 && dateTime.nowMinute > 570 && dateTime.nowMinute < 960) {
+						settlement.price = $('#MainContentContainer').find('.QuoteStrip-lastPrice').text();
+					} else {
+						settlement.price = $('#MainContentContainer').find('.QuoteStrip-lastPrice').eq(1).text();
+					}
 				} else {
-					thePrice = $('.quote-header-section').find('span').eq(3).text();
+					settlement.price = $('#MainContentContainer').find('.QuoteStrip-lastPrice').text();		
+					scrapeSettled = $('#MainContentContainer').find('.QuoteStrip-lastTradeTime').text();
+					settledDay = scrapeSettled.substring(scrapeSettled.indexOf("/") + 1, scrapeSettled.lastIndexOf("/"));
+					settledDay = parseInt(settledDay);
+
+					if (dateTime.nowWeekday > 5) {
+						settlement.settled = "Updated to friday's close.";
+					} else if (dateTime.nowMinute < 960) {
+						settlement.settled = "Updated to previous day's close.";		
+					} else if (dateTime.nowMinute >= 960 && dateTime.nowMinute <= 1440) {
+						if (settledDay === dateTime.nowDay) {
+							settlement.settled = "Updated to today's close.";		
+						} else {
+							settlement.settled = "Waiting for today's update.";
+						}
+					}
 				}
-				resolve(thePrice);
+
+				resolve(settlement);
 			})
 			.catch(() => "error");
 

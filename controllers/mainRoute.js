@@ -16,7 +16,6 @@ router.get("/", (req, res) => {
 
 	let allFunds = ["VTSAX", "VITAX", "MCHFX", "GLD"];
 	let updatedValues = getUpdated();
-	let dateNM = postDates();
 	let transfer = 0;
 	let issueNum = 0;
 	let didUpdate = {
@@ -30,10 +29,10 @@ router.get("/", (req, res) => {
 //			console.log(result);
 
 			result.forEach(each => {
-				if (each === "") {
+				if (each.price === "") {
 					issueNum++;
 				} else {		
-					transfer = Number(each);
+					transfer = Number(each.price);
 					if (Number.isNaN(transfer)) {
 						issueNum++;
 					}
@@ -67,64 +66,67 @@ router.get("/", (req, res) => {
 				res.render("error", { didUpdate });
 			} else {
 
-			let closeValues = atClose.prepareCloseValue(result);
+				let closeValues = atClose.prepareCloseValue(result);
 
-			let update = {
-				saved: {
-					totalDate: updatedValues[0],
-					totalValue: updatedValues[1],
-					upDown: updatedValues[2],
-					color: updatedValues[3],					
-					ytdValue: updatedValues[4],
-					percentage: updatedValues[5]
-				},
-				close: {
-					partialDate: dateNM.woMonth,
-					totalValue: closeValues[0],
-					upDown: closeValues[1],
-					color: closeValues[2],
-					ytdValue: closeValues[3],
-					percentage: closeValues[4]
-				},
-				totalfund: {
-					closeValue: closeValues[5],
-					ytdColor: closeValues[6],
-					ytdResults: closeValues[7],
-					upDown: closeValues[8],
-					differenceColor: closeValues[9],	
-					difference: closeValues[10],
-					differencePercentage: closeValues[11]
-				},
-				iTfund: {
-					closeValue: closeValues[12],
-					ytdColor: closeValues[13],
-					ytdResults: closeValues[14],
-					upDown: closeValues[15],
-					differenceColor: closeValues[16],	
-					difference: closeValues[17],
-					differencePercentage: closeValues[18]
-				},
-				chinafund: {
-					closeValue: closeValues[19],
-					ytdColor: closeValues[20],
-					ytdResults: closeValues[21],
-					upDown: closeValues[22],
-					differenceColor: closeValues[23],	
-					difference: closeValues[24],
-					differencePercentage: closeValues[25]
-				},
-				goldfund: {
-					closeValue: closeValues[26],
-					ytdColor: closeValues[27],
-					ytdResults: closeValues[28],
-					upDown: closeValues[29],
-					differenceColor: closeValues[30],	
-					difference: closeValues[31],
-					differencePercentage: closeValues[32]
+				let update = {
+					saved: {
+						totalDate: updatedValues[0],
+						totalValue: updatedValues[1],
+						upDown: updatedValues[2],
+						color: updatedValues[3],					
+						ytdValue: updatedValues[4],
+						percentage: updatedValues[5]
+					},
+					close: {
+						partialDate: postDates.woMonth,
+						totalValue: closeValues[0],
+						upDown: closeValues[1],
+						color: closeValues[2],
+						ytdValue: closeValues[3],
+						percentage: closeValues[4]
+					},
+					totalfund: {
+						settled: result[0].settled,
+						closeValue: closeValues[5],
+						ytdColor: closeValues[6],
+						ytdResults: closeValues[7],
+						upDown: closeValues[8],
+						differenceColor: closeValues[9],	
+						difference: closeValues[10],
+						differencePercentage: closeValues[11]
+					},
+					iTfund: {
+						settled: result[1].settled,
+						closeValue: closeValues[12],
+						ytdColor: closeValues[13],
+						ytdResults: closeValues[14],
+						upDown: closeValues[15],
+						differenceColor: closeValues[16],	
+						difference: closeValues[17],
+						differencePercentage: closeValues[18]
+					},
+					chinafund: {
+						settled: result[2].settled,
+						closeValue: closeValues[19],
+						ytdColor: closeValues[20],
+						ytdResults: closeValues[21],
+						upDown: closeValues[22],
+						differenceColor: closeValues[23],	
+						difference: closeValues[24],
+						differencePercentage: closeValues[25]
+					},
+					goldfund: {
+						closeValue: closeValues[26],
+						ytdColor: closeValues[27],
+						ytdResults: closeValues[28],
+						upDown: closeValues[29],
+						differenceColor: closeValues[30],	
+						difference: closeValues[31],
+						differencePercentage: closeValues[32]
+					}
 				}
-			}
 
-			res.render("index", { update });
+				res.render("index", { update });
 
 			}
 
