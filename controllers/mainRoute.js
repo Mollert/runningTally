@@ -116,6 +116,7 @@ router.get("/", (req, res) => {
 						differencePercentage: closeValues[25]
 					},
 					goldfund: {
+						settled: result[3].settled,
 						closeValue: closeValues[26],
 						ytdColor: closeValues[27],
 						ytdResults: closeValues[28],

@@ -34,8 +34,16 @@ const createPromises = (theGroup) => {
 				if (tick === "GLD") {
 					if (dateTime.nowWeekday < 6 && dateTime.nowMinute > 570 && dateTime.nowMinute < 960) {
 						settlement.price = $('#MainContentContainer').find('.QuoteStrip-lastPrice').text();
+						settlement.settled = "It's being updated during market hours.";
 					} else {
 						settlement.price = $('#MainContentContainer').find('.QuoteStrip-lastPrice').eq(1).text();
+						if (dateTime.nowWeekday > 5) {
+							settlement.settled = "Updated to friday's close.";
+						} else if (dateTime.nowMinute < 960) {
+							settlement.settled = "Updated to previous day's close.";
+						} else {
+							settlement.settled = "Updated to today's close.";
+						}
 					}
 				} else {
 					settlement.price = $('#MainContentContainer').find('.QuoteStrip-lastPrice').text();		
@@ -46,10 +54,11 @@ const createPromises = (theGroup) => {
 					if (dateTime.nowWeekday > 5) {
 						settlement.settled = "Updated to friday's close.";
 					} else if (dateTime.nowMinute < 960) {
-						settlement.settled = "Updated to previous day's close.";		
-					} else if (dateTime.nowMinute >= 960 && dateTime.nowMinute <= 1440) {
+						settlement.settled = "Updated to previous day's close.";
+					} else {
+//						(dateTime.nowMinute >= 960 && dateTime.nowMinute <= 1440) {
 						if (settledDay === dateTime.nowDay) {
-							settlement.settled = "Updated to today's close.";		
+							settlement.settled = "Updated to today's close.";
 						} else {
 							settlement.settled = "Waiting for today's update.";
 						}
