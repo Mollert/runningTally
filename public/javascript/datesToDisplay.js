@@ -17,7 +17,7 @@ const tailEnd = (whatDay) => {
 
 // Minus four hours because of UTC time zone on Digital Ocean servers
 let rightNow = DateTime.now();
-rightNow = rightNow.minus({hours: 4});
+//rightNow = rightNow.minus({hours: 4});
 
 // Need true day of the month and present minute for scraping file
 let nowMinute = (rightNow.hour * 60) + rightNow.minute;

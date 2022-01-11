@@ -32,15 +32,15 @@ const createPromises = (theGroup) => {
 				const $ = cheerio.load(reply);
 
 				if (tick === "GLD") {
-					if (dateTime.nowWeekday < 6 && dateTime.nowMinute > 570 && dateTime.nowMinute < 960) {
+					if (dateTime.nowWeekday < 6 && dateTime.nowMinute >= 570 && dateTime.nowMinute <= 960) {
 						settlement.price = $('#MainContentContainer').find('.QuoteStrip-lastPrice').text();
 						settlement.settled = "It's being updated during market hours.";
 					} else {
 						settlement.price = $('#MainContentContainer').find('.QuoteStrip-lastPrice').eq(1).text();
 						if (dateTime.nowWeekday > 5) {
 							settlement.settled = "Updated to friday's close.";
-						} else if (dateTime.nowMinute < 960) {
-							settlement.settled = "Updated to previous day's close.";
+						} else if (dateTime.nowMinute < 570) {
+							settlement.settled = "Waiting for today's open.";
 						} else {
 							settlement.settled = "Updated to today's close.";
 						}
