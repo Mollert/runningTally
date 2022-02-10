@@ -10,60 +10,30 @@ let createPromises = require("../public/javascript/scrapeSite.js");
 let atClose = require("../public/javascript/valueAtClose.js");
 // Needed partial date
 let postDates = require("../public/javascript/datesToDisplay.js");
+// Check for all and correct data
+let catchError = require("../public/javascript/catchError.js");
 
 
 router.get("/", (req, res) => {
 
 	let allFunds = ["VTSAX", "VITAX", "MCHFX", "GLD"];
 	let updatedValues = getUpdated();
-	let transfer = 0;
-	let issueNum = 0;
-	let didUpdate = {
-		issue: "",
-		plural: ""
-	};
+	let checkError = [];
 
 	const letsResolve = (pGroup) => {
 		Promise.all(pGroup).then(result => {
 
-//			console.log(result);
+//		console.log(result);
 
-			result.forEach(each => {
-				if (each.price === "") {
-					issueNum++;
-				} else {		
-					transfer = Number(each.price);
-					if (Number.isNaN(transfer)) {
-						issueNum++;
-					}
-				}
-			});
+//		console.log(catchError(result));
 
-			if (result.length !== 4) {
-				issueNum++;
-			}
+			checkError = catchError(result);
 
-			switch (issueNum) {
-				case 0:
-					didUpdate.issue = "";
-					break;
-				case 1:
-					didUpdate.issue = "one";
-					break;
-				case 2:
-					didUpdate.issue = "two";
-					didUpdate.plural = "s";
-					break;
-				case 3:
-					didUpdate.issue = "three";
-					didUpdate.plural = "s";
-					break;
-				default:
-					break;
-			}
+//		console.log(checkError);
 
-			if (issueNum > 0) {
-				res.render("error", { didUpdate });
+			if (checkError[0]) {
+				checkError.shift();
+				res.render("error", { checkError });
 			} else {
 
 				let closeValues = atClose.prepareCloseValue(result);
