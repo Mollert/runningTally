@@ -16,8 +16,9 @@ let catchError = require("../public/javascript/catchError.js");
 
 router.get("/", (req, res) => {
 
-	let allFunds = ["VTSAX", "VITAX", "MCHFX", "GLD"];
+	let allFunds = ["VTSAX", "VITAX", "VCDAX", "MCHFX"];
 	let updatedValues = getUpdated();
+	let current = postDates();
 	let checkError = [];
 
 	const letsResolve = (pGroup) => {
@@ -48,7 +49,7 @@ router.get("/", (req, res) => {
 						percentage: updatedValues[5]
 					},
 					close: {
-						partialDate: postDates.woMonth,
+						partialDate: current.woMonth,
 						totalValue: closeValues[0],
 						upDown: closeValues[1],
 						color: closeValues[2],
@@ -75,7 +76,7 @@ router.get("/", (req, res) => {
 						difference: closeValues[17],
 						differencePercentage: closeValues[18]
 					},
-					chinafund: {
+					consumefund: {
 						settled: result[2].settled,
 						closeValue: closeValues[19],
 						ytdColor: closeValues[20],
@@ -85,7 +86,7 @@ router.get("/", (req, res) => {
 						difference: closeValues[24],
 						differencePercentage: closeValues[25]
 					},
-					goldfund: {
+					chinafund: {
 						settled: result[3].settled,
 						closeValue: closeValues[26],
 						ytdColor: closeValues[27],

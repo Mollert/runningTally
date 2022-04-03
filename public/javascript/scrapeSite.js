@@ -10,6 +10,8 @@ let dateTime = require("./datesToDisplay.js");
 const createPromises = (theGroup) => {
 
 	let allPs = [];
+	let current = dateTime();
+	let dayName = ["Friday's", "Monday's", "Tuesday's", "Wednesday's", "Thursday's", "Friday's", "Saturday's", "Sunday's"];
 
 	theGroup.forEach((tick) => {
 
@@ -31,37 +33,20 @@ const createPromises = (theGroup) => {
 
 				const $ = cheerio.load(reply);
 
-				if (tick === "GLD") {
-					if (dateTime.nowWeekday < 6 && dateTime.nowMinute >= 570 && dateTime.nowMinute <= 960) {
-						settlement.price = $('#MainContentContainer').find('.QuoteStrip-lastPrice').text();
-						settlement.settled = "It's being updated during market hours.";
-					} else {
-						settlement.price = $('#MainContentContainer').find('.QuoteStrip-lastPrice').eq(1).text();
-						if (dateTime.nowWeekday > 5) {
-							settlement.settled = "Updated to friday's close.";
-						} else if (dateTime.nowMinute < 570) {
-							settlement.settled = "Waiting for today's open.";
-						} else {
-							settlement.settled = "Updated to today's close.";
-						}
-					}
-				} else {
-					settlement.price = $('#MainContentContainer').find('.QuoteStrip-lastPrice').text();		
-					scrapeSettled = $('#MainContentContainer').find('.QuoteStrip-lastTradeTime').text();
-					settledDay = scrapeSettled.substring(scrapeSettled.indexOf("/") + 1, scrapeSettled.lastIndexOf("/"));
-					settledDay = parseInt(settledDay);
+				settlement.price = $('#MainContentContainer').find('.QuoteStrip-lastPrice').text();		
+				scrapeSettled = $('#MainContentContainer').find('.QuoteStrip-lastTradeTime').text();
+				settledDay = scrapeSettled.substring(scrapeSettled.indexOf("/") + 1, scrapeSettled.lastIndexOf("/"));
+				settledDay = parseInt(settledDay);
 
-					if (dateTime.nowWeekday > 5) {
-						settlement.settled = "Updated to friday's close.";
-					} else if (dateTime.nowMinute < 960) {
-						settlement.settled = "Updated to previous day's close.";
+				if (current.nowWeekday > 5) {
+					settlement.settled = "Updated to friday's close.";
+				} else if (current.nowMinute < 960) {
+					settlement.settled = "Updated to " + dayName[current.nowWeekday-1] + " close.";
+				} else {
+					if (settledDay === current.nowDay) {
+						settlement.settled = "Updated to " + dayName[current.nowWeekday] + " close.";
 					} else {
-//						(dateTime.nowMinute >= 960 && dateTime.nowMinute <= 1440) {
-						if (settledDay === dateTime.nowDay) {
-							settlement.settled = "Updated to today's close.";
-						} else {
-							settlement.settled = "Waiting for today's update.";
-						}
+						settlement.settled = "Waiting for " + dayName[current.nowWeekday] + " update.";
 					}
 				}
 

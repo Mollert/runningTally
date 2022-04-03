@@ -13,7 +13,9 @@ let values = asValues.allCloseValues;
 
 router.get("/", (req, res) => {
 
-	let saveData = postDates.wMonth + "|" + values[0] + "|" + values[1] + "|" + values[2] + "|" + values[3] + "|" + values[4] + "|" + values[5] + "|" + values[12] + "|" + values[19] + "|" + values[26];
+	let current = postDates();
+
+	let saveData = current.wMonth + "|" + values[0] + "|" + values[1] + "|" + values[2] + "|" + values[3] + "|" + values[4] + "|" + values[5] + "|" + values[12] + "|" + values[19] + "|" + values[26];
 
 	let path = "./updateFile/updatedData.txt"
 
@@ -29,7 +31,7 @@ router.get("/", (req, res) => {
 	});
 
 	let posted = {
-		date: postDates.wMonth,
+		date: current.wMonth,
 		tPortfolio: values[0],
 		increaseDecrease: values[1],
 		color: values[2],
@@ -37,8 +39,8 @@ router.get("/", (req, res) => {
 		percent: values[4],
 		tStock: values[5],
 		iTech: values[12],
-		matthews: values[19],
-		gShares: values[26]
+		conDis: values[19],		
+		matthews: values[26]
 	}
 
 	res.render("update", { posted });
