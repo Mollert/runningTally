@@ -31,9 +31,10 @@ html, body {
 }
 
 .divider {
-	height: 2.4rem;
-	margin: 2rem 2rem 0 2rem;
-	border-top: 0.4rem solid lightslategray;
+	height: 0.4rem;
+	margin: 2rem 2rem 2rem 2rem;
+	background-color: lightslategray;
+	border-radius: 0.2rem;
 }
 
 .fundName {
