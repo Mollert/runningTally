@@ -3,24 +3,27 @@
 		<div id="canister">	
 
 			<div class="portfolio">
-				<div>Year began with $2,028,121.09.</div>
+				<div>Year began with ${{update.working.began}}.</div>
+				<div>Withdrew ${{update.working.withdrawn}} since first of year.</div>
+				<div>Working total = ${{update.working.total}}.</div>				
 			</div>
 
 			<div class="divider"></div>	
 
 			<div class="portfolio">
-				<div>A portfolio snapshot from {{update.saved.totalDate}}</div>
-				<div><span class="fontLarger">${{update.saved.totalValue}}</span> was the total portfolio value.</div>
-				<div>A YTD {{update.saved.upDown}} of <span class="fontLarger" style="color:{{update.saved.color}};">${{update.saved.ytdValue}}</span> or <span style="color:{{update.saved.color}};">{{update.saved.percentage}}%</span></div>
+				<div>A portfolio snapshot from {{update.saved.date}}</div>
+				<div>recorded a value of <span class="fontLarger">${{update.saved.value}}</span>.</div>
+				<div>A{{update.saved.upDown}} from the working total of <span class="fontLarger" style="color:{{update.saved.color}};">${{update.saved.difference}}</span> or <span style="color:{{update.saved.color}};">{{update.saved.percentage}}%</span>.</div>
 			</div>
 
 			<div class="divider"></div>	
 
 			<div class="portfolio">
-				<div>As of close on {{update.close.partialDate}}</div>
-				<div><span class="fontLarger">${{update.close.totalValue}}</span> was the total portfolio value.</div>
+				<div>As of close on {{update.close.date}}</div>
+				<div><span class="fontLarger">${{update.close.value}}</span> was the total portfolio value.</div>
+				<div>A{{update.close.workingUpDown}} from the working total of <span class="fontLarger" style="color:{{update.close.workingColor}};">${{update.close.workingDifference}}</span> or <span style="color:{{update.close.workingColor}};">{{update.close.workingPercentage}}%</span>.</div>
 				<div>Since the last snapshot,</div>
-				<div>that's a{{update.close.upDown}} of <span class="fontLarger" style="color:{{update.close.color}};">${{update.close.ytdValue}}</span> or <span style="color:{{update.close.color}};">{{update.close.percentage}}%</span></div>
+				<div>that's a{{update.close.upDown}} of <span class="fontLarger" style="color:{{update.close.color}};">${{update.close.difference}}</span> or <span style="color:{{update.close.color}};">{{update.close.percentage}}%</span>.</div>
 			</div>
 
 			<div class="divider"></div>	
@@ -29,7 +32,7 @@
 				<div class="fundName">Vanguard Total Stock Market Index (VTSAX)</div>
 				<div>{{update.totalfund.settled}}</div>
 				<div>It closed at ${{update.totalfund.closeValue}}</div>
-				<div>Since 1st quarter, a return of <span style="color:{{update.totalfund.ytdColor}};">{{update.totalfund.ytdResults}}%</span></div>
+				<div>Since adding to investment on 3/25, a return of <span style="color:{{update.totalfund.ytdColor}};">{{update.totalfund.ytdResults}}%</span></div>
 				<div class="spaceBar">Since the last snapshot the value</div>				
 				<div class="spaceBar">has {{update.totalfund.upDown}} by <span style="color:{{update.totalfund.differenceColor}};">${{update.totalfund.difference}}</span> or <span style="color:{{update.totalfund.differenceColor}};">{{update.totalfund.differencePercentage}}%</span></div>
 			</div>
@@ -37,7 +40,7 @@
 				<div class="fundName spaceTop">Vanguard Information Technology Index (VITAX)</div>
 				<div>{{update.iTfund.settled}}</div>
 				<div>It closed at ${{update.iTfund.closeValue}}</div>
-				<div>Since 1st quarter, a return of <span style="color:{{update.iTfund.ytdColor}};">{{update.iTfund.ytdResults}}%</span></div>
+				<div>YTD return of <span style="color:{{update.iTfund.ytdColor}};">{{update.iTfund.ytdResults}}%</span></div>
 				<div class="spaceBar">Since the last snapshot the value</div>				
 				<div class="spaceBar">has {{update.iTfund.upDown}} by <span style="color:{{update.iTfund.differenceColor}};">${{update.iTfund.difference}}</span> or <span style="color:{{update.iTfund.differenceColor}};">{{update.iTfund.differencePercentage}}%</span></div>			
 			</div>
@@ -45,7 +48,7 @@
 				<div class="fundName spaceTop">Vanguard Consumer Discretionary Index (VCDAX)</div>
 				<div>{{update.consumefund.settled}}</div>
 				<div>It closed at ${{update.consumefund.closeValue}}</div>
-				<div>Since 1st quarter, a return of <span style="color:{{update.consumefund.ytdColor}};">{{update.consumefund.ytdResults}}%</span></div>
+				<div>Since initial investment on 3/23, a return of <span style="color:{{update.consumefund.ytdColor}};">{{update.consumefund.ytdResults}}%</span></div>
 				<div class="spaceBar">Since the last snapshot the value</div>				
 				<div class="spaceBar">has {{update.consumefund.upDown}} by <span style="color:{{update.consumefund.differenceColor}};">${{update.consumefund.difference}}</span> or <span style="color:{{update.consumefund.differenceColor}};">{{update.consumefund.differencePercentage}}%</span></div>				
 			</div>
@@ -53,7 +56,7 @@
 				<div class="fundName spaceTop">Matthews China Fund (MCHFX)</div>
 				<div>{{update.chinafund.settled}}</div>				
 				<div>It closed at ${{update.chinafund.closeValue}}</div>
-				<div>Since 1st quarter, a return of <span style="color:{{update.chinafund.ytdColor}};">{{update.chinafund.ytdResults}}%</span></div>
+				<div>YTD return of <span style="color:{{update.chinafund.ytdColor}};">{{update.chinafund.ytdResults}}%</span></div>
 				<div class="spaceBar">Since the last snapshot the value</div>				
 				<div class="spaceBar">has {{update.chinafund.upDown}} by <span style="color:{{update.chinafund.differenceColor}};">${{update.chinafund.difference}}</span> or <span style="color:{{update.chinafund.differenceColor}};">{{update.chinafund.differencePercentage}}%</span></div>				
 			</div>

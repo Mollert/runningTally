@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
 
 	let current = postDates();
 
-	let saveData = current.wMonth + "|" + values[0] + "|" + values[1] + "|" + values[2] + "|" + values[3] + "|" + values[4] + "|" + values[5] + "|" + values[12] + "|" + values[19] + "|" + values[26];
+	let saveData = current.wMonth + "|" + values[3] + "|" + values[4] + "|" + values[5] + "|" + values[6] + "|" + values[7] + "|" + values[12] + "|" + values[19] + "|" + values[26] + "|" + values[33];
 
 	let path = "./updateFile/updatedData.txt"
 
@@ -32,15 +32,15 @@ router.get("/", (req, res) => {
 
 	let posted = {
 		date: current.wMonth,
-		tPortfolio: values[0],
-		increaseDecrease: values[1],
-		color: values[2],
-		difference: values[3],
-		percent: values[4],
-		tStock: values[5],
-		iTech: values[12],
-		conDis: values[19],		
-		matthews: values[26]
+		tPortfolio: values[3],
+		increaseDecrease: values[4],
+		color: values[5],
+		difference: values[6],
+		percent: values[7],
+		tStock: values[12],
+		iTech: values[19],		
+		conDis: values[26],
+		matthews: values[33]		
 	}
 
 	res.render("update", { posted });

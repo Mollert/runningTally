@@ -10,62 +10,93 @@ const prepareCloseValue = (closes) => {
 
 	let updatedValues = getUpdated();
 
-	let portTotal = pointInTime.woFunds;
+	let portTotal = pointInTime.aMomentWoFunds;
+	let workingTotal = pointInTime.yearBegan - pointInTime.withdrawal;
 	let totalUpdatedValue = Number(updatedValues[1].replace(/,/g, ""));
 	let totalDifference = 0;
 	let portPercentage = 0;
 
-// Calculate close value of funds and add to portfolio value wo/fund value
+// Capture first of year total, withdrawal and working total
+	allCloseValues[0] = theCommas(pointInTime.yearBegan);
+	allCloseValues[1] = theCommas(pointInTime.withdrawal);
+	allCloseValues[2] = theCommas(workingTotal);
+
+// Calculate close value of funds and add to total wo/fund value
 	for (i = 0 ; i < closes.length ; i++) {
 		let fundValue = Number(closes[i].price);
-		fundValue = (fundValue * pointInTime.fundShares[i]);
+		fundValue = (fundValue * pointInTime.aMomentFundShares[i]);
 
 		portTotal = portTotal + fundValue;
 	}
 
-	allCloseValues[0] = theCommas(portTotal);
+	allCloseValues[3] = theCommas(portTotal);
 
-// Calculate if increase or decrease from point in time
-
-	if (portTotal > totalUpdatedValue) {
-		allCloseValues[1] = "n increase";
-		allCloseValues[2] = "black";
+// Calculate if increase or decrease from working total
+	if (portTotal > workingTotal) {
+		allCloseValues[4] = "n increase";
+		allCloseValues[5] = "black";
 	} else {
-		allCloseValues[1] = " decrease";
-		allCloseValues[2] = "red";
+		allCloseValues[4] = " decrease";
+		allCloseValues[5] = "red";
 	}
 
-// Calculate the difference from the point in time
+// Calculate the difference from working total
+	totalDifference = portTotal - workingTotal;
+	if (totalDifference < 0) {
+		totalDifference = totalDifference * -1;
+	}
+
+	allCloseValues[6] = theCommas(totalDifference);
+
+// Find percentage from working total
+	portPercentage = (((portTotal - workingTotal) / workingTotal) * 100);
+	if (portPercentage < 0.1 && portPercentage > -0.1) {
+		allCloseValues[4] = "Almost 0";
+	} else {
+		allCloseValues[7] = portPercentage.toFixed(1);		
+	}
+
+// Calculate if increase or decrease from last snapshot
+	if (portTotal > totalUpdatedValue) {
+		allCloseValues[8] = "n increase";
+		allCloseValues[9] = "black";
+	} else {
+		allCloseValues[8] = " decrease";
+		allCloseValues[9] = "red";
+	}
+
+// Calculate the difference from last snapshot
 	totalDifference = portTotal - totalUpdatedValue;
 	if (totalDifference < 0) {
 		totalDifference = totalDifference * -1;
 	}
 
-	allCloseValues[3] = theCommas(totalDifference);
+	allCloseValues[10] = theCommas(totalDifference);
 
-// Find percentage from the point in time
+// Find percentage from last snapshot
 	portPercentage = (((portTotal - totalUpdatedValue) / totalUpdatedValue) * 100);
 	if (portPercentage < 0.1 && portPercentage > -0.1) {
-		allCloseValues[4] = "Almost 0";
+		allCloseValues[8] = "Almost 0";
 	} else {
-		allCloseValues[4] = portPercentage.toFixed(1);		
+		allCloseValues[11] = portPercentage.toFixed(1);		
 	}
 
-	let j = 5;
+	let j = 12;
 // Calculate value and percentage of each fund
 	for (i = 0 ; i < closes.length ; i++) {
-// Claculate value of each fund
+// Claculate current value of each fund
 		let currentValue = Number(closes[i].price);
-		currentValue = (currentValue * pointInTime.fundShares[i]);
+		currentValue = (currentValue * pointInTime.aMomentFundShares[i]);
 		allCloseValues[j] = theCommas(currentValue);
 
-// Is current value of the current value a plus or minus
-		if (currentValue > (pointInTime.fundValue[i] * pointInTime.fundShares[i])) {
+// Is current value a increase or decrease in percentage since first of year
+		let beganValue = pointInTime.beganFundValue[i] * pointInTime.beganFundShares[i];
+		if (currentValue > beganValue) {
 			allCloseValues[j+1] = "black";
 		} else {
-			allCloseValues[j+1] = "red";	
+			allCloseValues[j+1] = "red";
 		}
-		allCloseValues[j+2] = ((closes[i].price - pointInTime.fundValue[i]) / pointInTime.fundValue[i] * 100).toFixed(1);
+ 		allCloseValues[j+2] = ((currentValue - beganValue) / beganValue * 100).toFixed(1);
 
 // Convert updated stirng of value to number and then see if close value is more or less of updated value
 		let updatedValueToNumber = updatedValues[i+6].replace(/,/g, "");

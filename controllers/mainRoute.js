@@ -40,34 +40,33 @@ router.get("/", (req, res) => {
 				let closeValues = atClose.prepareCloseValue(result);
 
 				let update = {
+					working: {
+						began: closeValues[0],
+						withdrawn: closeValues[1],
+						total: closeValues[2]
+					},
 					saved: {
-						totalDate: updatedValues[0],
-						totalValue: updatedValues[1],
+						date: updatedValues[0],
+						value: updatedValues[1],
 						upDown: updatedValues[2],
 						color: updatedValues[3],					
-						ytdValue: updatedValues[4],
+						difference: updatedValues[4],
 						percentage: updatedValues[5]
 					},
 					close: {
-						partialDate: current.woMonth,
-						totalValue: closeValues[0],
-						upDown: closeValues[1],
-						color: closeValues[2],
-						ytdValue: closeValues[3],
-						percentage: closeValues[4]
+						date: current.woMonth,
+						value: closeValues[3],
+						workingUpDown: closeValues[4],
+						workingColor: closeValues[5],
+						workingDifference: closeValues[6],
+						workingPercentage: closeValues[7],
+						upDown: closeValues[8],
+						color: closeValues[9],
+						difference: closeValues[10],
+						percentage: closeValues[11]
 					},
 					totalfund: {
 						settled: result[0].settled,
-						closeValue: closeValues[5],
-						ytdColor: closeValues[6],
-						ytdResults: closeValues[7],
-						upDown: closeValues[8],
-						differenceColor: closeValues[9],	
-						difference: closeValues[10],
-						differencePercentage: closeValues[11]
-					},
-					iTfund: {
-						settled: result[1].settled,
 						closeValue: closeValues[12],
 						ytdColor: closeValues[13],
 						ytdResults: closeValues[14],
@@ -76,8 +75,8 @@ router.get("/", (req, res) => {
 						difference: closeValues[17],
 						differencePercentage: closeValues[18]
 					},
-					consumefund: {
-						settled: result[2].settled,
+					iTfund: {
+						settled: result[1].settled,
 						closeValue: closeValues[19],
 						ytdColor: closeValues[20],
 						ytdResults: closeValues[21],
@@ -86,8 +85,8 @@ router.get("/", (req, res) => {
 						difference: closeValues[24],
 						differencePercentage: closeValues[25]
 					},
-					chinafund: {
-						settled: result[3].settled,
+					consumefund: {
+						settled: result[2].settled,
 						closeValue: closeValues[26],
 						ytdColor: closeValues[27],
 						ytdResults: closeValues[28],
@@ -95,6 +94,16 @@ router.get("/", (req, res) => {
 						differenceColor: closeValues[30],	
 						difference: closeValues[31],
 						differencePercentage: closeValues[32]
+					},
+					chinafund: {
+						settled: result[3].settled,
+						closeValue: closeValues[33],
+						ytdColor: closeValues[34],
+						ytdResults: closeValues[35],
+						upDown: closeValues[36],
+						differenceColor: closeValues[37],	
+						difference: closeValues[38],
+						differencePercentage: closeValues[39]
 					}
 				}
 
