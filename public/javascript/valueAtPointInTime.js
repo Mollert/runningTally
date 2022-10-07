@@ -1,14 +1,12 @@
 
-// From July 29th
+// From September 30th (a moment in time)
 let pointInTime = {
 	yearBegan: 2028121.09,
-	withdrawal: 58000.00,
-	aMomentTotal: 1769948.84,
-	aMomentWoFunds: 556080.36,
-	aMomentFundValue: [100.39, 189.48, 139.06, 15.64],	
-	aMomentFundShares: [3849.63, 2819.75, 1666.50, 3924.20],
-	beganFundValue: [110.99, 234.49, 156.32, 20.58],
-	beganFundShares: [3834.33, 2809.93, 1663.26, 3924.20]
+	withdrawal: 74000.00,
+	aMomentWoFunds: 513255.69,
+	aMomentFundShares: [3865.85, 2826.55, 1670.41, 3924.20],
+	beganFundValue: [117.56, 234.49, 156.32, 20.58],
+	beganFundShares: [3095.55, 2809.93, 1663.26, 3924.20]
 }
 
 

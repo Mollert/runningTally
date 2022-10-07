@@ -3,7 +3,6 @@ let getUpdated = require("./readUpdated.js");
 let pointInTime = require("./valueAtPointInTime.js");
 let theCommas = require("./addCommas.js");
 
-
 let allCloseValues = [];
 
 const prepareCloseValue = (closes) => {
@@ -51,7 +50,7 @@ const prepareCloseValue = (closes) => {
 // Find percentage from working total
 	portPercentage = (((portTotal - workingTotal) / workingTotal) * 100);
 	if (portPercentage < 0.1 && portPercentage > -0.1) {
-		allCloseValues[4] = "Almost 0";
+		allCloseValues[4] = "lmost 0";
 	} else {
 		allCloseValues[7] = portPercentage.toFixed(1);		
 	}
@@ -76,7 +75,8 @@ const prepareCloseValue = (closes) => {
 // Find percentage from last snapshot
 	portPercentage = (((portTotal - totalUpdatedValue) / totalUpdatedValue) * 100);
 	if (portPercentage < 0.1 && portPercentage > -0.1) {
-		allCloseValues[8] = "Almost 0";
+		allCloseValues[8] = "lmost 0";
+		allCloseValues[11] = "0";
 	} else {
 		allCloseValues[11] = portPercentage.toFixed(1);		
 	}
@@ -84,19 +84,20 @@ const prepareCloseValue = (closes) => {
 	let j = 12;
 // Calculate value and percentage of each fund
 	for (i = 0 ; i < closes.length ; i++) {
+
+		let closePrice = Number(closes[i].price);
+
 // Claculate current value of each fund
-		let currentValue = Number(closes[i].price);
-		currentValue = (currentValue * pointInTime.aMomentFundShares[i]);
+		let currentValue = (closePrice * pointInTime.aMomentFundShares[i]);
 		allCloseValues[j] = theCommas(currentValue);
 
 // Is current value a increase or decrease in percentage since first of year
-		let beganValue = pointInTime.beganFundValue[i] * pointInTime.beganFundShares[i];
-		if (currentValue > beganValue) {
+		if (closePrice > pointInTime.beganFundValue[i]) {
 			allCloseValues[j+1] = "black";
 		} else {
-			allCloseValues[j+1] = "red";
+			allCloseValues[j+1] = "red";			
 		}
- 		allCloseValues[j+2] = ((currentValue - beganValue) / beganValue * 100).toFixed(1);
+ 		allCloseValues[j+2] = ((closePrice - pointInTime.beganFundValue[i]) / pointInTime.beganFundValue[i] * 100).toFixed(1);
 
 // Convert updated stirng of value to number and then see if close value is more or less of updated value
 		let updatedValueToNumber = updatedValues[i+6].replace(/,/g, "");
@@ -117,7 +118,7 @@ const prepareCloseValue = (closes) => {
 // What is the percentage difference between updated value and closed value
 		let fundPercentage = ((currentValue - updatedValueToNumber) / updatedValueToNumber * 100);
 		if (fundPercentage < 0.1 && fundPercentage > -0.1) {
-			allCloseValues[j+6] = "Almost 0";
+			allCloseValues[j+6] = "almost 0";
 		} else {
 			allCloseValues[j+6] = fundPercentage.toFixed(1);			
 		}
